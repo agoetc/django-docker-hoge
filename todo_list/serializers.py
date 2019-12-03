@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import Todo, Customer, Profile
+from hoge.serializers import HogeSerializer
 
 
 class TodoSerializer(serializers.ModelSerializer):
@@ -18,7 +19,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer(required=False)
+    hoges = HogeSerializer(many=True)
 
     class Meta:
         model = Customer
-        fields = ('customer_id', 'profile')
+        fields = ('customer_id', 'profile', 'hoges')

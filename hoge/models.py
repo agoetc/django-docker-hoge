@@ -7,6 +7,7 @@ class Hoge(models.Model):
 
     customer = models.ForeignKey(
         Customer,
+        related_name='hoges',
         on_delete=models.CASCADE,
         blank=True,
         null=True
