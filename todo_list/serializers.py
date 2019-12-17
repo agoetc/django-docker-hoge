@@ -19,8 +19,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer(required=False)
-    hoges = HogeSerializer(many=True)
+    # hoges = HogeSerializer(many=True)
+
+    def create(self, validated_data):
+        profile_data = validated_data.pop('profile')
+        profile = Profile.objects.create(**profile_data)
+        customer = Customer.objects.create(profile=profile, **validated_data)
+        return customer
 
     class Meta:
         model = Customer
-        fields = ('customer_id', 'profile', 'hoges')
+        fields = ('customer_id', 'profile')
